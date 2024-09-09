@@ -24,6 +24,10 @@ function InfosView() {
 
   useEffect(() => {
     async function init() {
+      //判断apiKey存在，解决第一次加载时，没有apiKey导致报错
+      if(!apiKey){
+        return;
+      }
       const data = await callAPI_getSetting(apiKey);
       if(!data['error']){
         if(data['user']){
@@ -36,9 +40,6 @@ function InfosView() {
         if(data['setting'] && data['setting']['user_tag_list']){
           setTags(data['setting']['user_tag_list']);
         }
-
-
-
       }
     }
     init()
